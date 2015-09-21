@@ -21,9 +21,14 @@ namespace AixmConverter
           
             using (var fs = new StreamWriter(new FileStream(@"C:\dev\aixm\Chicago_OHare_BASELINE\Chicago_OHare_BASELINE.geojson", FileMode.Create)))
             {
+                var settings = new JsonSerializerSettings
+                {
+                    Formatting = Formatting.Indented,
+                };
                 using (var writer = new JsonTextWriter(fs))
                 {
-                    obj.WriteTo(writer);
+                    JsonSerializer.Create(settings).Serialize(writer, obj);
+                    //obj.WriteTo(writer);
                 }
             }
              using (Stream fs =new FileStream(@"C:\dev\aixm\Chicago_OHare_BASELINE\Chicago_OHare_BASELINE.aixm5", FileMode.Create))
